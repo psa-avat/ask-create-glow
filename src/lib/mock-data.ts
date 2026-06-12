@@ -73,3 +73,67 @@ export const memberPacks = [
   { id: "P-201", name: "Pack 10h solo", purchased: "2026-04-12", consumed: 6.4, total: 10, value: 600 },
   { id: "P-198", name: "Pack instruction 5h", purchased: "2026-02-03", consumed: 5, total: 5, value: 500 },
 ];
+
+export type VoucherStatus = "purchased" | "sent" | "scheduled" | "flown" | "expired";
+export type VoucherSource = "direct" | "helloasso";
+
+export interface DiscoveryVoucher {
+  id: string;
+  source: VoucherSource;
+  product: string;
+  purchaser: string;
+  beneficiary: string;
+  email: string;
+  amount: number;
+  purchased: string;
+  expires: string;
+  status: VoucherStatus;
+  scheduledDate?: string;
+  flightId?: string;
+  pilot?: string;
+  aircraft?: string;
+}
+
+export const discoveryVouchers: DiscoveryVoucher[] = [
+  { id: "VI-2026-0042", source: "helloasso", product: "Vol découverte 20 min", purchaser: "Marie Lambert", beneficiary: "Paul Lambert", email: "marie.l@example.com", amount: 95, purchased: "2026-06-08", expires: "2027-06-08", status: "sent", scheduledDate: "2026-06-15" },
+  { id: "VI-2026-0041", source: "helloasso", product: "Vol découverte 30 min", purchaser: "Eric Faure", beneficiary: "Eric Faure", email: "eric.f@example.com", amount: 135, purchased: "2026-06-07", expires: "2027-06-07", status: "purchased" },
+  { id: "VI-2026-0040", source: "direct", product: "Vol baptême biplace", purchaser: "Club — guichet", beneficiary: "Julie Renard", email: "julie.r@example.com", amount: 110, purchased: "2026-06-06", expires: "2027-06-06", status: "flown", scheduledDate: "2026-06-11", flightId: "F-10824", pilot: "Antoine Roy", aircraft: "F-CABC" },
+  { id: "VI-2026-0039", source: "helloasso", product: "Vol découverte 20 min", purchaser: "Karim Benali", beneficiary: "Sofia Benali", email: "karim.b@example.com", amount: 95, purchased: "2026-06-05", expires: "2027-06-05", status: "scheduled", scheduledDate: "2026-06-14" },
+  { id: "VI-2026-0038", source: "direct", product: "Vol découverte 30 min", purchaser: "Laurent Vidal", beneficiary: "Laurent Vidal", email: "l.vidal@example.com", amount: 135, purchased: "2026-05-30", expires: "2027-05-30", status: "purchased" },
+  { id: "VI-2025-0237", source: "helloasso", product: "Vol baptême biplace", purchaser: "Anna Schmitt", beneficiary: "Théo Schmitt", email: "anna.s@example.com", amount: 110, purchased: "2025-06-02", expires: "2026-06-02", status: "expired" },
+];
+
+export const discoveryKpis = {
+  vouchersOpen: 12,
+  vouchersMonth: 8,
+  revenueMonth: 1020,
+  helloassoPending: 3,
+  expiringSoon: 2,
+};
+
+export const pricingCatalog = {
+  flights: [
+    { code: "SOL-ASK21", label: "ASK 21 — Solo", unit: "min de vol", price: 1.0, vat: 20 },
+    { code: "INS-ASK21", label: "ASK 21 — Instruction", unit: "min de vol", price: 2.05, vat: 20 },
+    { code: "SOL-LS4", label: "LS4 — Solo", unit: "min de vol", price: 1.0, vat: 20 },
+    { code: "SOL-DUO", label: "Duo Discus — Solo", unit: "min de vol", price: 1.2, vat: 20 },
+    { code: "TREU", label: "Treuillée", unit: "treuillée", price: 14.0, vat: 20 },
+    { code: "REMORQ-500", label: "Remorquage 500 m", unit: "remorquage", price: 32.0, vat: 20 },
+  ],
+  memberships: [
+    { code: "ADH-PIL", label: "Adhésion pilote", unit: "an", price: 240, vat: 0 },
+    { code: "ADH-ELV", label: "Adhésion élève", unit: "an", price: 180, vat: 0 },
+    { code: "ADH-JEU", label: "Adhésion jeune (-25)", unit: "an", price: 120, vat: 0 },
+    { code: "ADH-EXT", label: "Adhésion externe", unit: "an", price: 60, vat: 0 },
+  ],
+  packs: [
+    { code: "PCK-10S", label: "Pack 10h solo", unit: "pack", price: 600, vat: 20 },
+    { code: "PCK-5I", label: "Pack 5h instruction", unit: "pack", price: 500, vat: 20 },
+    { code: "PCK-20S", label: "Pack 20h solo", unit: "pack", price: 1150, vat: 20 },
+  ],
+  discovery: [
+    { code: "VI-20", label: "Vol découverte 20 min", unit: "vol", price: 95, vat: 20 },
+    { code: "VI-30", label: "Vol découverte 30 min", unit: "vol", price: 135, vat: 20 },
+    { code: "VI-BAP", label: "Vol baptême biplace", unit: "vol", price: 110, vat: 20 },
+  ],
+};
