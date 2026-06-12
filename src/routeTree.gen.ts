@@ -16,6 +16,7 @@ import { Route as PlanningRouteImport } from './routes/planning'
 import { Route as MembersRouteImport } from './routes/members'
 import { Route as IntegrationsRouteImport } from './routes/integrations'
 import { Route as FinanceRouteImport } from './routes/finance'
+import { Route as DiscoveryRouteImport } from './routes/discovery'
 import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as AdministrationRouteImport } from './routes/administration'
 import { Route as IndexRouteImport } from './routes/index'
@@ -58,6 +59,11 @@ const IntegrationsRoute = IntegrationsRouteImport.update({
 const FinanceRoute = FinanceRouteImport.update({
   id: '/finance',
   path: '/finance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiscoveryRoute = DiscoveryRouteImport.update({
+  id: '/discovery',
+  path: '/discovery',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AssetsRoute = AssetsRouteImport.update({
@@ -105,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/administration': typeof AdministrationRoute
   '/assets': typeof AssetsRoute
+  '/discovery': typeof DiscoveryRoute
   '/finance': typeof FinanceRoute
   '/integrations': typeof IntegrationsRoute
   '/members': typeof MembersRoute
@@ -122,6 +129,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/administration': typeof AdministrationRoute
   '/assets': typeof AssetsRoute
+  '/discovery': typeof DiscoveryRoute
   '/finance': typeof FinanceRoute
   '/integrations': typeof IntegrationsRoute
   '/members': typeof MembersRoute
@@ -139,6 +147,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/administration': typeof AdministrationRoute
   '/assets': typeof AssetsRoute
+  '/discovery': typeof DiscoveryRoute
   '/finance': typeof FinanceRoute
   '/integrations': typeof IntegrationsRoute
   '/members': typeof MembersRoute
@@ -158,6 +167,7 @@ export interface FileRouteTypes {
     | '/'
     | '/administration'
     | '/assets'
+    | '/discovery'
     | '/finance'
     | '/integrations'
     | '/members'
@@ -175,6 +185,7 @@ export interface FileRouteTypes {
     | '/'
     | '/administration'
     | '/assets'
+    | '/discovery'
     | '/finance'
     | '/integrations'
     | '/members'
@@ -191,6 +202,7 @@ export interface FileRouteTypes {
     | '/'
     | '/administration'
     | '/assets'
+    | '/discovery'
     | '/finance'
     | '/integrations'
     | '/members'
@@ -209,6 +221,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdministrationRoute: typeof AdministrationRoute
   AssetsRoute: typeof AssetsRoute
+  DiscoveryRoute: typeof DiscoveryRoute
   FinanceRoute: typeof FinanceRoute
   IntegrationsRoute: typeof IntegrationsRoute
   MembersRoute: typeof MembersRoute
@@ -267,6 +280,13 @@ declare module '@tanstack/react-router' {
       path: '/finance'
       fullPath: '/finance'
       preLoaderRoute: typeof FinanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/discovery': {
+      id: '/discovery'
+      path: '/discovery'
+      fullPath: '/discovery'
+      preLoaderRoute: typeof DiscoveryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/assets': {
@@ -351,6 +371,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdministrationRoute: AdministrationRoute,
   AssetsRoute: AssetsRoute,
+  DiscoveryRoute: DiscoveryRoute,
   FinanceRoute: FinanceRoute,
   IntegrationsRoute: IntegrationsRoute,
   MembersRoute: MembersRoute,
@@ -362,3 +383,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
