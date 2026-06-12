@@ -13,6 +13,8 @@ import {
   BookOpen,
   CreditCard,
   Package,
+  Ticket,
+  Tag,
 } from "lucide-react";
 import {
   Sidebar,
@@ -31,7 +33,9 @@ import { useRole } from "@/lib/role-context";
 const opsNav = [
   { title: "Daily Operations", url: "/", icon: LayoutDashboard },
   { title: "Members", url: "/members", icon: Users },
+  { title: "Vols d'initiation", url: "/discovery", icon: Ticket },
   { title: "Finance", url: "/finance", icon: Wallet },
+  { title: "Tarifs", url: "/pricing", icon: Tag },
   { title: "Assets & Availability", url: "/assets", icon: Plane },
   { title: "Planning", url: "/planning", icon: Calendar },
   { title: "Sales & Suppliers", url: "/sales", icon: ShoppingCart },
