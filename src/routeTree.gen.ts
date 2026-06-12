@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SalesRouteImport } from './routes/sales'
 import { Route as ReportingRouteImport } from './routes/reporting'
+import { Route as PortalRouteImport } from './routes/portal'
 import { Route as PlanningRouteImport } from './routes/planning'
 import { Route as MembersRouteImport } from './routes/members'
 import { Route as IntegrationsRouteImport } from './routes/integrations'
@@ -18,6 +19,11 @@ import { Route as FinanceRouteImport } from './routes/finance'
 import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as AdministrationRouteImport } from './routes/administration'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PortalIndexRouteImport } from './routes/portal.index'
+import { Route as PortalPacksRouteImport } from './routes/portal.packs'
+import { Route as PortalLogbookRouteImport } from './routes/portal.logbook'
+import { Route as PortalAvailabilityRouteImport } from './routes/portal.availability'
+import { Route as PortalAccountRouteImport } from './routes/portal.account'
 
 const SalesRoute = SalesRouteImport.update({
   id: '/sales',
@@ -27,6 +33,11 @@ const SalesRoute = SalesRouteImport.update({
 const ReportingRoute = ReportingRouteImport.update({
   id: '/reporting',
   path: '/reporting',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortalRoute = PortalRouteImport.update({
+  id: '/portal',
+  path: '/portal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlanningRoute = PlanningRouteImport.update({
@@ -64,6 +75,31 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortalIndexRoute = PortalIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalPacksRoute = PortalPacksRouteImport.update({
+  id: '/packs',
+  path: '/packs',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalLogbookRoute = PortalLogbookRouteImport.update({
+  id: '/logbook',
+  path: '/logbook',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalAvailabilityRoute = PortalAvailabilityRouteImport.update({
+  id: '/availability',
+  path: '/availability',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalAccountRoute = PortalAccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => PortalRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -73,8 +109,14 @@ export interface FileRoutesByFullPath {
   '/integrations': typeof IntegrationsRoute
   '/members': typeof MembersRoute
   '/planning': typeof PlanningRoute
+  '/portal': typeof PortalRouteWithChildren
   '/reporting': typeof ReportingRoute
   '/sales': typeof SalesRoute
+  '/portal/account': typeof PortalAccountRoute
+  '/portal/availability': typeof PortalAvailabilityRoute
+  '/portal/logbook': typeof PortalLogbookRoute
+  '/portal/packs': typeof PortalPacksRoute
+  '/portal/': typeof PortalIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -86,6 +128,11 @@ export interface FileRoutesByTo {
   '/planning': typeof PlanningRoute
   '/reporting': typeof ReportingRoute
   '/sales': typeof SalesRoute
+  '/portal/account': typeof PortalAccountRoute
+  '/portal/availability': typeof PortalAvailabilityRoute
+  '/portal/logbook': typeof PortalLogbookRoute
+  '/portal/packs': typeof PortalPacksRoute
+  '/portal': typeof PortalIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -96,8 +143,14 @@ export interface FileRoutesById {
   '/integrations': typeof IntegrationsRoute
   '/members': typeof MembersRoute
   '/planning': typeof PlanningRoute
+  '/portal': typeof PortalRouteWithChildren
   '/reporting': typeof ReportingRoute
   '/sales': typeof SalesRoute
+  '/portal/account': typeof PortalAccountRoute
+  '/portal/availability': typeof PortalAvailabilityRoute
+  '/portal/logbook': typeof PortalLogbookRoute
+  '/portal/packs': typeof PortalPacksRoute
+  '/portal/': typeof PortalIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -109,8 +162,14 @@ export interface FileRouteTypes {
     | '/integrations'
     | '/members'
     | '/planning'
+    | '/portal'
     | '/reporting'
     | '/sales'
+    | '/portal/account'
+    | '/portal/availability'
+    | '/portal/logbook'
+    | '/portal/packs'
+    | '/portal/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -122,6 +181,11 @@ export interface FileRouteTypes {
     | '/planning'
     | '/reporting'
     | '/sales'
+    | '/portal/account'
+    | '/portal/availability'
+    | '/portal/logbook'
+    | '/portal/packs'
+    | '/portal'
   id:
     | '__root__'
     | '/'
@@ -131,8 +195,14 @@ export interface FileRouteTypes {
     | '/integrations'
     | '/members'
     | '/planning'
+    | '/portal'
     | '/reporting'
     | '/sales'
+    | '/portal/account'
+    | '/portal/availability'
+    | '/portal/logbook'
+    | '/portal/packs'
+    | '/portal/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -143,6 +213,7 @@ export interface RootRouteChildren {
   IntegrationsRoute: typeof IntegrationsRoute
   MembersRoute: typeof MembersRoute
   PlanningRoute: typeof PlanningRoute
+  PortalRoute: typeof PortalRouteWithChildren
   ReportingRoute: typeof ReportingRoute
   SalesRoute: typeof SalesRoute
 }
@@ -161,6 +232,13 @@ declare module '@tanstack/react-router' {
       path: '/reporting'
       fullPath: '/reporting'
       preLoaderRoute: typeof ReportingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portal': {
+      id: '/portal'
+      path: '/portal'
+      fullPath: '/portal'
+      preLoaderRoute: typeof PortalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/planning': {
@@ -212,8 +290,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portal/': {
+      id: '/portal/'
+      path: '/'
+      fullPath: '/portal/'
+      preLoaderRoute: typeof PortalIndexRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/packs': {
+      id: '/portal/packs'
+      path: '/packs'
+      fullPath: '/portal/packs'
+      preLoaderRoute: typeof PortalPacksRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/logbook': {
+      id: '/portal/logbook'
+      path: '/logbook'
+      fullPath: '/portal/logbook'
+      preLoaderRoute: typeof PortalLogbookRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/availability': {
+      id: '/portal/availability'
+      path: '/availability'
+      fullPath: '/portal/availability'
+      preLoaderRoute: typeof PortalAvailabilityRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/account': {
+      id: '/portal/account'
+      path: '/account'
+      fullPath: '/portal/account'
+      preLoaderRoute: typeof PortalAccountRouteImport
+      parentRoute: typeof PortalRoute
+    }
   }
 }
+
+interface PortalRouteChildren {
+  PortalAccountRoute: typeof PortalAccountRoute
+  PortalAvailabilityRoute: typeof PortalAvailabilityRoute
+  PortalLogbookRoute: typeof PortalLogbookRoute
+  PortalPacksRoute: typeof PortalPacksRoute
+  PortalIndexRoute: typeof PortalIndexRoute
+}
+
+const PortalRouteChildren: PortalRouteChildren = {
+  PortalAccountRoute: PortalAccountRoute,
+  PortalAvailabilityRoute: PortalAvailabilityRoute,
+  PortalLogbookRoute: PortalLogbookRoute,
+  PortalPacksRoute: PortalPacksRoute,
+  PortalIndexRoute: PortalIndexRoute,
+}
+
+const PortalRouteWithChildren =
+  PortalRoute._addFileChildren(PortalRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -223,6 +355,7 @@ const rootRouteChildren: RootRouteChildren = {
   IntegrationsRoute: IntegrationsRoute,
   MembersRoute: MembersRoute,
   PlanningRoute: PlanningRoute,
+  PortalRoute: PortalRouteWithChildren,
   ReportingRoute: ReportingRoute,
   SalesRoute: SalesRoute,
 }
