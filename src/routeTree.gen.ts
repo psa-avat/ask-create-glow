@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SalesRouteImport } from './routes/sales'
 import { Route as ReportingRouteImport } from './routes/reporting'
+import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PortalRouteImport } from './routes/portal'
 import { Route as PlanningRouteImport } from './routes/planning'
 import { Route as MembersRouteImport } from './routes/members'
@@ -34,6 +35,11 @@ const SalesRoute = SalesRouteImport.update({
 const ReportingRoute = ReportingRouteImport.update({
   id: '/reporting',
   path: '/reporting',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PortalRoute = PortalRouteImport.update({
@@ -117,6 +123,7 @@ export interface FileRoutesByFullPath {
   '/members': typeof MembersRoute
   '/planning': typeof PlanningRoute
   '/portal': typeof PortalRouteWithChildren
+  '/pricing': typeof PricingRoute
   '/reporting': typeof ReportingRoute
   '/sales': typeof SalesRoute
   '/portal/account': typeof PortalAccountRoute
@@ -134,6 +141,7 @@ export interface FileRoutesByTo {
   '/integrations': typeof IntegrationsRoute
   '/members': typeof MembersRoute
   '/planning': typeof PlanningRoute
+  '/pricing': typeof PricingRoute
   '/reporting': typeof ReportingRoute
   '/sales': typeof SalesRoute
   '/portal/account': typeof PortalAccountRoute
@@ -153,6 +161,7 @@ export interface FileRoutesById {
   '/members': typeof MembersRoute
   '/planning': typeof PlanningRoute
   '/portal': typeof PortalRouteWithChildren
+  '/pricing': typeof PricingRoute
   '/reporting': typeof ReportingRoute
   '/sales': typeof SalesRoute
   '/portal/account': typeof PortalAccountRoute
@@ -173,6 +182,7 @@ export interface FileRouteTypes {
     | '/members'
     | '/planning'
     | '/portal'
+    | '/pricing'
     | '/reporting'
     | '/sales'
     | '/portal/account'
@@ -190,6 +200,7 @@ export interface FileRouteTypes {
     | '/integrations'
     | '/members'
     | '/planning'
+    | '/pricing'
     | '/reporting'
     | '/sales'
     | '/portal/account'
@@ -208,6 +219,7 @@ export interface FileRouteTypes {
     | '/members'
     | '/planning'
     | '/portal'
+    | '/pricing'
     | '/reporting'
     | '/sales'
     | '/portal/account'
@@ -227,6 +239,7 @@ export interface RootRouteChildren {
   MembersRoute: typeof MembersRoute
   PlanningRoute: typeof PlanningRoute
   PortalRoute: typeof PortalRouteWithChildren
+  PricingRoute: typeof PricingRoute
   ReportingRoute: typeof ReportingRoute
   SalesRoute: typeof SalesRoute
 }
@@ -245,6 +258,13 @@ declare module '@tanstack/react-router' {
       path: '/reporting'
       fullPath: '/reporting'
       preLoaderRoute: typeof ReportingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/portal': {
@@ -377,6 +397,7 @@ const rootRouteChildren: RootRouteChildren = {
   MembersRoute: MembersRoute,
   PlanningRoute: PlanningRoute,
   PortalRoute: PortalRouteWithChildren,
+  PricingRoute: PricingRoute,
   ReportingRoute: ReportingRoute,
   SalesRoute: SalesRoute,
 }
