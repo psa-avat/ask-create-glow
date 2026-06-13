@@ -5,6 +5,8 @@ import {
   Calendar,
   Users,
   ShoppingCart,
+  ShoppingBag,
+  BookOpen,
   Wallet,
   Wrench,
   Clock,
