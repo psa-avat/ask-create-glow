@@ -1,21 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import {
-  LayoutDashboard,
-  Users,
-  Wallet,
-  Plane,
-  Calendar,
-  ShoppingCart,
-  Plug,
-  BarChart3,
-  Settings,
-  PlaneTakeoff,
-  BookOpen,
-  CreditCard,
-  Package,
-  Ticket,
-  Tag,
-} from "lucide-react";
+import { PlaneTakeoff, ChevronRight } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -27,38 +11,22 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { useRole } from "@/lib/role-context";
+import { navSections, memberNav, type NavSection } from "@/lib/navigation";
 
-const opsNav = [
-  { title: "Daily Operations", url: "/", icon: LayoutDashboard },
-  { title: "Members", url: "/members", icon: Users },
-  { title: "Vols d'initiation", url: "/discovery", icon: Ticket },
-  { title: "Finance", url: "/finance", icon: Wallet },
-  { title: "Tarifs", url: "/pricing", icon: Tag },
-  { title: "Assets & Availability", url: "/assets", icon: Plane },
-  { title: "Planning", url: "/planning", icon: Calendar },
-  { title: "Sales & Suppliers", url: "/sales", icon: ShoppingCart },
-];
-
-const opsAdmin = [
-  { title: "Integrations", url: "/integrations", icon: Plug },
-  { title: "Reporting", url: "/reporting", icon: BarChart3 },
-  { title: "Administration", url: "/administration", icon: Settings },
-];
-
-const memberNav = [
-  { title: "Mon tableau de bord", url: "/portal", icon: LayoutDashboard },
-  { title: "Logbook", url: "/portal/logbook", icon: BookOpen },
-  { title: "Mon compte", url: "/portal/account", icon: CreditCard },
-  { title: "Mes packs", url: "/portal/packs", icon: Package },
-  { title: "Disponibilités", url: "/portal/availability", icon: Plane },
-];
+function isParentActive(pathname: string, section: NavSection) {
+  if (section.to === "/") return pathname === "/";
+  return pathname === section.to || pathname.startsWith(section.to + "/");
+}
 
 export function AppSidebar() {
   const { role } = useRole();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const isActive = (url: string) => (url === "/" ? pathname === "/" : pathname === url || pathname.startsWith(url + "/"));
+  const hash = useRouterState({ select: (s) => s.location.hash ?? "" });
 
   return (
     <Sidebar collapsible="icon">
@@ -76,57 +44,75 @@ export function AppSidebar() {
 
       <SidebarContent>
         {role === "operations" ? (
-          <>
-            <SidebarGroup>
-              <SidebarGroupLabel>Opérations</SidebarGroupLabel>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  {opsNav.map((item) => (
-                    <SidebarMenuItem key={item.url}>
-                      <SidebarMenuButton asChild isActive={isActive(item.url)} tooltip={item.title}>
-                        <Link to={item.url}>
-                          <item.icon />
-                          <span>{item.title}</span>
+          <SidebarGroup>
+            <SidebarGroupLabel>Opérations</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {navSections.map((section) => {
+                  const active = isParentActive(pathname, section);
+                  const Icon = section.icon;
+                  return (
+                    <SidebarMenuItem key={section.to}>
+                      <SidebarMenuButton asChild isActive={active} tooltip={section.label}>
+                        <Link to={section.to}>
+                          <Icon />
+                          <span>{section.label}</span>
+                          {section.children?.length ? (
+                            <ChevronRight className="ml-auto h-3.5 w-3.5 opacity-50 group-data-[collapsible=icon]:hidden" />
+                          ) : null}
                         </Link>
                       </SidebarMenuButton>
+                      {active && section.children?.length ? (
+                        <SidebarMenuSub>
+                          {section.children.map((child) => {
+                            const [path, anchor] = child.to.split("#");
+                            const isChildActive =
+                              pathname === path && (anchor ? hash === `#${anchor}` || hash === anchor : !hash);
+                            const ChildIcon = child.icon;
+                            return (
+                              <SidebarMenuSubItem key={child.to}>
+                                <SidebarMenuSubButton asChild isActive={isChildActive}>
+                                  <Link
+                                    to={path}
+                                    hash={anchor || undefined}
+                                  >
+                                    {ChildIcon ? <ChildIcon className="h-3.5 w-3.5" /> : null}
+                                    <span>{child.label}</span>
+                                  </Link>
+                                </SidebarMenuSubButton>
+                              </SidebarMenuSubItem>
+                            );
+                          })}
+                        </SidebarMenuSub>
+                      ) : null}
                     </SidebarMenuItem>
-                  ))}
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
-            <SidebarGroup>
-              <SidebarGroupLabel>Administration</SidebarGroupLabel>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  {opsAdmin.map((item) => (
-                    <SidebarMenuItem key={item.url}>
-                      <SidebarMenuButton asChild isActive={isActive(item.url)} tooltip={item.title}>
-                        <Link to={item.url}>
-                          <item.icon />
-                          <span>{item.title}</span>
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
-          </>
+                  );
+                })}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
         ) : (
           <SidebarGroup>
             <SidebarGroupLabel>Espace pilote</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {memberNav.map((item) => (
-                  <SidebarMenuItem key={item.url}>
-                    <SidebarMenuButton asChild isActive={isActive(item.url)} tooltip={item.title}>
-                      <Link to={item.url}>
-                        <item.icon />
-                        <span>{item.title}</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
+                {memberNav.map((item) => {
+                  const active =
+                    item.to === "/portal"
+                      ? pathname === "/portal" || pathname === "/portal/"
+                      : pathname === item.to;
+                  const Icon = item.icon;
+                  return (
+                    <SidebarMenuItem key={item.to}>
+                      <SidebarMenuButton asChild isActive={active} tooltip={item.label}>
+                        <Link to={item.to}>
+                          <Icon />
+                          <span>{item.label}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
