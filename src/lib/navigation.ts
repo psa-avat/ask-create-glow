@@ -100,7 +100,7 @@ export const navSections: NavSection[] = [
   {
     to: "/portal",
     label: "Portail membres",
-    icon: PortalIcon,
+    icon: BookOpen,
     children: [
       { to: "/portal/logbook", label: "Logbooks", icon: FileText },
       { to: "/portal/account", label: "Balance & dépenses", icon: CreditCard },
