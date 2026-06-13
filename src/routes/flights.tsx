@@ -35,10 +35,10 @@ function FlightsPage() {
         }
       />
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <KpiCard label="Vols ce mois" value="142" delta="+18 vs. M-1" />
-        <KpiCard label="Heures facturées" value="218 h" delta="+12%" />
-        <KpiCard label="À facturer" value="3 240 €" tone="warning" />
-        <KpiCard label="Packs actifs" value="27" />
+        <KpiCard label="Vols ce mois" value="142" hint="+18 vs. M-1" trend={{ value: "14%", positive: true }} />
+        <KpiCard label="Heures facturées" value="218 h" trend={{ value: "12%", positive: true }} />
+        <KpiCard label="À facturer" value="3 240 €" accent="warning" hint="6 vols en attente" />
+        <KpiCard label="Packs actifs" value="27" hint="3 expirations < 30j" />
       </div>
       <Tabs value={active}>
         <TabsList>
