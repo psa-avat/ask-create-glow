@@ -47,37 +47,43 @@ export type NavSection = {
 export const navSections: NavSection[] = [
   { to: "/", label: "Tableau de bord", icon: LayoutDashboard },
 
+  // 1. Facturation des vols
   {
     to: "/flights",
-    label: "Facturation & Vols",
+    label: "Facturation des vols",
     icon: Receipt,
     capability: "EDIT_FLIGHTS",
     children: [
       { to: "/flights", label: "Vols", icon: Plane },
-      { to: "/flights#billing", label: "Facturation des vols", icon: FileText },
+      { to: "/flights#billing", label: "Facturation", icon: FileText },
       { to: "/flights#packs", label: "Packs", icon: Tags },
+      { to: "/flights#gesasso", label: "Envoi Gesasso", icon: ArrowLeftRight },
+      { to: "/flights#osrt", label: "Envoi OSRT", icon: ArrowLeftRight },
       { to: "/flights#fetch", label: "Planche — récupération", icon: Database },
     ],
   },
 
+  // 2. Gestion des VI (HelloAsso)
   {
     to: "/discovery",
-    label: "Vols d'initiation & HelloAsso",
+    label: "Vols d'initiation",
     icon: Ticket,
     children: [
       { to: "/discovery", label: "Bons VI", icon: Ticket },
       { to: "/discovery#types", label: "Types de VI", icon: TableProperties },
       { to: "/discovery#planning", label: "Planning VI", icon: Calendar },
-      { to: "/discovery#helloasso", label: "Achats HelloAsso", icon: ShoppingCart },
+      { to: "/discovery#helloasso", label: "HelloAsso — achats", icon: ShoppingCart },
       { to: "/discovery#sync", label: "Sync Planche", icon: ArrowLeftRight },
     ],
   },
 
-  { to: "/planning", label: "Planning", icon: Calendar },
+  // 3. Planning
+  { to: "/planning", label: "Planning activité", icon: Calendar },
 
+  // 4. Gestion des membres
   {
     to: "/members",
-    label: "Membres",
+    label: "Membres & adhésions",
     icon: Users,
     capability: "MANAGE_USERS",
     children: [
@@ -88,59 +94,101 @@ export const navSections: NavSection[] = [
     ],
   },
 
+  // 5. Portail membres (raccourci — vue détaillée via le switcher de rôle)
+  {
+    to: "/portal",
+    label: "Portail membres",
+    icon: PortalIcon,
+    children: [
+      { to: "/portal/logbook", label: "Logbooks", icon: FileText },
+      { to: "/portal/account", label: "Balance & dépenses", icon: CreditCard },
+      { to: "/portal/packs", label: "Packs", icon: Tags },
+    ],
+  },
+
+  // 6. Ventes
   {
     to: "/sales",
-    label: "Ventes & Achats",
+    label: "Ventes",
     icon: ShoppingCart,
     capability: "VIEW_FINANCIALS",
     children: [
       { to: "/sales", label: "Ventes membres", icon: CreditCard },
-      { to: "/sales#suppliers", label: "Factures fournisseurs", icon: FileText },
+      { to: "/sales#invoices", label: "Factures", icon: FileText },
+      { to: "/sales#payments", label: "Paiements", icon: CreditCard },
     ],
   },
 
+  // 7. Achats
+  {
+    to: "/purchases",
+    label: "Achats",
+    icon: ShoppingBag,
+    capability: "VIEW_FINANCIALS",
+    children: [
+      { to: "/purchases", label: "Factures fournisseurs", icon: FileText },
+      { to: "/purchases#suppliers", label: "Fournisseurs", icon: Building2 },
+    ],
+  },
+
+  // 8. Banque / écritures récurrentes
   {
     to: "/finance",
-    label: "Banque & Comptabilité",
+    label: "Banque",
     icon: Wallet,
     capability: "VIEW_FINANCIALS",
     children: [
       { to: "/finance", label: "Vue d'ensemble", icon: LayoutDashboard },
       { to: "/finance#operations", label: "Opérations", icon: ArrowLeftRight },
-      { to: "/finance#journal", label: "Journal", icon: FileText },
-      { to: "/finance#fy", label: "Exercices", icon: Calendar },
-      { to: "/finance#pcg", label: "Plan comptable", icon: TableProperties },
-      { to: "/finance#reports", label: "Bilans", icon: BarChart3 },
+      { to: "/finance#recurring", label: "Écritures récurrentes", icon: ArrowLeftRight },
       { to: "/finance#reconciliation", label: "Rapprochement", icon: ArrowLeftRight },
     ],
   },
 
+  // 9. RH
+  {
+    to: "/rh",
+    label: "Ressources humaines",
+    icon: Clock,
+    children: [
+      { to: "/rh", label: "Planning équipe", icon: Calendar },
+      { to: "/rh#leaves", label: "Congés", icon: Calendar },
+    ],
+  },
+
+  // 10. Comptabilité
+  {
+    to: "/accounting",
+    label: "Comptabilité",
+    icon: FileText,
+    capability: "VIEW_FINANCIALS",
+    children: [
+      { to: "/accounting", label: "Journal", icon: FileText },
+      { to: "/accounting#fy", label: "Exercices", icon: Calendar },
+      { to: "/accounting#pcg", label: "Plan comptable", icon: TableProperties },
+    ],
+  },
+
+  // 11. Machines
   {
     to: "/assets",
-    label: "Machines & Tarifs",
+    label: "Machines & disponibilité",
     icon: Wrench,
     capability: "MANAGE_ASSETS",
     children: [
       { to: "/assets", label: "Équipement", icon: Wrench },
       { to: "/assets#types", label: "Types d'appareils", icon: TableProperties },
-      { to: "/pricing", label: "Tarifs", icon: Tags },
+      { to: "/assets#availability", label: "Disponibilité", icon: Calendar },
     ],
   },
 
-  { to: "/rh", label: "Ressources humaines", icon: Clock },
+  // 12. Tarifs
+  { to: "/pricing", label: "Tarifs", icon: Tags },
 
-  {
-    to: "/integrations",
-    label: "Intégrations",
-    icon: Plug,
-    children: [
-      { to: "/integrations#members", label: "Push membres Planche", icon: Users },
-      { to: "/integrations#machines", label: "Push machines Planche", icon: Wrench },
-      { to: "/integrations#gesasso", label: "Sync Gesasso", icon: Plug },
-      { to: "/integrations#osrt", label: "Sync OSRT", icon: Plug },
-    ],
-  },
+  // 13. Bilans
+  { to: "/reporting", label: "Bilans & états", icon: BarChart3 },
 
+  // 14. Admin / Configurations
   {
     to: "/administration",
     label: "Administration",
@@ -152,6 +200,7 @@ export const navSections: NavSection[] = [
       { to: "/administration#helloasso", label: "Config HelloAsso", icon: Plug },
       { to: "/administration#planche", label: "Config Planche", icon: Plug },
       { to: "/administration#storage", label: "Stockage", icon: HardDrive },
+      { to: "/integrations", label: "Intégrations", icon: Plug },
     ],
   },
 ];
