@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SalesRouteImport } from './routes/sales'
 import { Route as RhRouteImport } from './routes/rh'
 import { Route as ReportingRouteImport } from './routes/reporting'
+import { Route as PurchasesRouteImport } from './routes/purchases'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PortalRouteImport } from './routes/portal'
 import { Route as PlanningRouteImport } from './routes/planning'
@@ -22,6 +23,7 @@ import { Route as FinanceRouteImport } from './routes/finance'
 import { Route as DiscoveryRouteImport } from './routes/discovery'
 import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as AdministrationRouteImport } from './routes/administration'
+import { Route as AccountingRouteImport } from './routes/accounting'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PortalIndexRouteImport } from './routes/portal.index'
 import { Route as PortalPacksRouteImport } from './routes/portal.packs'
@@ -42,6 +44,11 @@ const RhRoute = RhRouteImport.update({
 const ReportingRoute = ReportingRouteImport.update({
   id: '/reporting',
   path: '/reporting',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PurchasesRoute = PurchasesRouteImport.update({
+  id: '/purchases',
+  path: '/purchases',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PricingRoute = PricingRouteImport.update({
@@ -94,6 +101,11 @@ const AdministrationRoute = AdministrationRouteImport.update({
   path: '/administration',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccountingRoute = AccountingRouteImport.update({
+  id: '/accounting',
+  path: '/accounting',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -127,6 +139,7 @@ const PortalAccountRoute = PortalAccountRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/accounting': typeof AccountingRoute
   '/administration': typeof AdministrationRoute
   '/assets': typeof AssetsRoute
   '/discovery': typeof DiscoveryRoute
@@ -137,6 +150,7 @@ export interface FileRoutesByFullPath {
   '/planning': typeof PlanningRoute
   '/portal': typeof PortalRouteWithChildren
   '/pricing': typeof PricingRoute
+  '/purchases': typeof PurchasesRoute
   '/reporting': typeof ReportingRoute
   '/rh': typeof RhRoute
   '/sales': typeof SalesRoute
@@ -148,6 +162,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/accounting': typeof AccountingRoute
   '/administration': typeof AdministrationRoute
   '/assets': typeof AssetsRoute
   '/discovery': typeof DiscoveryRoute
@@ -157,6 +172,7 @@ export interface FileRoutesByTo {
   '/members': typeof MembersRoute
   '/planning': typeof PlanningRoute
   '/pricing': typeof PricingRoute
+  '/purchases': typeof PurchasesRoute
   '/reporting': typeof ReportingRoute
   '/rh': typeof RhRoute
   '/sales': typeof SalesRoute
@@ -169,6 +185,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/accounting': typeof AccountingRoute
   '/administration': typeof AdministrationRoute
   '/assets': typeof AssetsRoute
   '/discovery': typeof DiscoveryRoute
@@ -179,6 +196,7 @@ export interface FileRoutesById {
   '/planning': typeof PlanningRoute
   '/portal': typeof PortalRouteWithChildren
   '/pricing': typeof PricingRoute
+  '/purchases': typeof PurchasesRoute
   '/reporting': typeof ReportingRoute
   '/rh': typeof RhRoute
   '/sales': typeof SalesRoute
@@ -192,6 +210,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/accounting'
     | '/administration'
     | '/assets'
     | '/discovery'
@@ -202,6 +221,7 @@ export interface FileRouteTypes {
     | '/planning'
     | '/portal'
     | '/pricing'
+    | '/purchases'
     | '/reporting'
     | '/rh'
     | '/sales'
@@ -213,6 +233,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/accounting'
     | '/administration'
     | '/assets'
     | '/discovery'
@@ -222,6 +243,7 @@ export interface FileRouteTypes {
     | '/members'
     | '/planning'
     | '/pricing'
+    | '/purchases'
     | '/reporting'
     | '/rh'
     | '/sales'
@@ -233,6 +255,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/accounting'
     | '/administration'
     | '/assets'
     | '/discovery'
@@ -243,6 +266,7 @@ export interface FileRouteTypes {
     | '/planning'
     | '/portal'
     | '/pricing'
+    | '/purchases'
     | '/reporting'
     | '/rh'
     | '/sales'
@@ -255,6 +279,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccountingRoute: typeof AccountingRoute
   AdministrationRoute: typeof AdministrationRoute
   AssetsRoute: typeof AssetsRoute
   DiscoveryRoute: typeof DiscoveryRoute
@@ -265,6 +290,7 @@ export interface RootRouteChildren {
   PlanningRoute: typeof PlanningRoute
   PortalRoute: typeof PortalRouteWithChildren
   PricingRoute: typeof PricingRoute
+  PurchasesRoute: typeof PurchasesRoute
   ReportingRoute: typeof ReportingRoute
   RhRoute: typeof RhRoute
   SalesRoute: typeof SalesRoute
@@ -291,6 +317,13 @@ declare module '@tanstack/react-router' {
       path: '/reporting'
       fullPath: '/reporting'
       preLoaderRoute: typeof ReportingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/purchases': {
+      id: '/purchases'
+      path: '/purchases'
+      fullPath: '/purchases'
+      preLoaderRoute: typeof PurchasesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pricing': {
@@ -363,6 +396,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdministrationRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/accounting': {
+      id: '/accounting'
+      path: '/accounting'
+      fullPath: '/accounting'
+      preLoaderRoute: typeof AccountingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -429,6 +469,7 @@ const PortalRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccountingRoute: AccountingRoute,
   AdministrationRoute: AdministrationRoute,
   AssetsRoute: AssetsRoute,
   DiscoveryRoute: DiscoveryRoute,
@@ -439,6 +480,7 @@ const rootRouteChildren: RootRouteChildren = {
   PlanningRoute: PlanningRoute,
   PortalRoute: PortalRouteWithChildren,
   PricingRoute: PricingRoute,
+  PurchasesRoute: PurchasesRoute,
   ReportingRoute: ReportingRoute,
   RhRoute: RhRoute,
   SalesRoute: SalesRoute,
@@ -446,3 +488,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
