@@ -16,6 +16,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { AppHeader } from "@/components/app-header";
 import { AlertsBanner } from "@/components/alerts-banner";
 import { RoleProvider } from "@/lib/role-context";
+import { SelectedMemberProvider } from "@/lib/selected-member-context";
 import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
@@ -124,17 +125,19 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <RoleProvider>
-        <SidebarProvider>
-          <AppSidebar />
-          <SidebarInset>
-            <AppHeader />
-            <main className="flex-1 p-4 md:p-6">
-              <AlertsBanner />
-              <Outlet />
-            </main>
-          </SidebarInset>
-        </SidebarProvider>
-        <Toaster />
+        <SelectedMemberProvider>
+          <SidebarProvider>
+            <AppSidebar />
+            <SidebarInset>
+              <AppHeader />
+              <main className="flex-1 p-4 md:p-6">
+                <AlertsBanner />
+                <Outlet />
+              </main>
+            </SidebarInset>
+          </SidebarProvider>
+          <Toaster />
+        </SelectedMemberProvider>
       </RoleProvider>
     </QueryClientProvider>
   );
