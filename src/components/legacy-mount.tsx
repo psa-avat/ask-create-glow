@@ -1,4 +1,4 @@
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 import { useRouterState } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import "@/legacy/i18n";
