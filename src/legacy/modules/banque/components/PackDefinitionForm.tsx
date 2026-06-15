@@ -1,0 +1,236 @@
+/*
+    ERP-CLUB - ERP pour Club de vol à voile
+    - Logiciel libre de gestion d'un club de vol à voile
+    - banque/packs: Pack definition form — edit metadata + applicability links
+    Copyright (C) 2026  SAFORCADA Patrick
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Plus, Trash2 } from 'lucide-react'
+
+import { Button } from '../../../components/ui/button'
+import { Input } from '../../../components/ui/input'
+import { Label } from '../../../components/ui/label'
+import type { PricingItemWithVersion } from '../api'
+
+export type PackFormState = {
+  code: string
+  name: string
+  fiscal_year_uuid: string
+  pack_type: string
+  quantity_allowance: string
+  quantity_unit: string
+  pack_sales_account_uuid: string | null
+  pack_discount_expense_account_uuid: string | null
+  priority: number
+}
+
+export type ApplicableItemFormEntry = {
+  pricing_item_uuid: string
+  discounted_unit_price: string
+  _key: string // local unique key for React list rendering
+}
+
+type Props = {
+  initial: PackFormState
+  applicability: ApplicableItemFormEntry[]
+  fiscalYears: { uuid: string; code: string }[]
+  pricingItems: PricingItemWithVersion[]
+  accounts: { uuid: string; code: string; name: string }[]
+  saving: boolean
+  onSave: (form: PackFormState, items: ApplicableItemFormEntry[]) => Promise<void>
+  onCancel: () => void
+}
+
+let _itemKey = 0
+function nextKey(): string {
+  _itemKey += 1
+  return `item_${_itemKey}`
+}
+
+export function PackDefinitionForm({
+  initial,
+  applicability,
+  fiscalYears,
+  pricingItems,
+  accounts,
+  saving,
+  onSave,
+  onCancel,
+}: Props) {
+  const { t } = useTranslation(['banque', 'common'])
+
+  const [form, setForm] = useState<PackFormState>(initial)
+  const [items, setItems] = useState<ApplicableItemFormEntry[]>(applicability)
+
+  const set = (field: keyof PackFormState, value: string | number) =>
+    setForm((prev) => ({ ...prev, [field]: value }))
+
+  const addItem = () =>
+    setItems((prev) => [
+      ...prev,
+      { pricing_item_uuid: '', discounted_unit_price: '0', _key: nextKey() },
+    ])
+
+  const updateItem = (key: string, field: 'pricing_item_uuid' | 'discounted_unit_price', value: string) =>
+    setItems((prev) => prev.map((i) => (i._key === key ? { ...i, [field]: value } : i)))
+
+  const removeItem = (key: string) =>
+    setItems((prev) => prev.filter((i) => i._key !== key))
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    onSave(form, items)
+  }
+
+  function handleSelectChange(field: keyof PackFormState, value: string) {
+    set(field, value)
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {/* ── Metadata Section ──────────────────────────────────────────────── */}
+      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h3 className="mb-4 text-lg font-semibold text-slate-900">{t('packs.form.metadata')}</h3>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="space-y-1">
+            <Label htmlFor="code">{t('packs.form.code')}</Label>
+            <Input id="code" value={form.code} onChange={(e) => set('code', e.target.value)} required />
+          </div>
+          <div className="space-y-1">
+            <Label htmlFor="name">{t('packs.form.name')}</Label>
+            <Input id="name" value={form.name} onChange={(e) => set('name', e.target.value)} required />
+          </div>
+          <div className="space-y-1">
+            <Label htmlFor="pack_type">{t('packs.form.packType')}</Label>
+            <select id="pack_type" value={form.pack_type} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleSelectChange('pack_type', e.target.value)}
+              className="h-10 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-slate-400">
+              <option value="flight_hours">Flight hours</option>
+              <option value="winch_launches">Winch launches</option>
+              <option value="tow_launches">Tow launches</option>
+              <option value="engine_time">Engine time</option>
+            </select>
+          </div>
+          <div className="space-y-1">
+            <Label htmlFor="fiscal_year">{t('packs.form.fiscalYear')}</Label>
+            <select id="fiscal_year" value={form.fiscal_year_uuid} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleSelectChange('fiscal_year_uuid', e.target.value)} required
+              className="h-10 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-slate-400">
+              <option value="">{t('common.select')}</option>
+              {fiscalYears.map((fy) => (
+                <option key={fy.uuid} value={fy.uuid}>{fy.code}</option>
+              ))}
+            </select>
+          </div>
+          <div className="space-y-1">
+            <Label htmlFor="qty">{t('packs.form.quantityAllowance')}</Label>
+            <Input id="qty" type="number" step="0.01" min="0" value={form.quantity_allowance}
+              onChange={(e) => set('quantity_allowance', e.target.value)} required />
+          </div>
+          <div className="space-y-1">
+            <Label htmlFor="unit">{t('packs.form.quantityUnit')}</Label>
+            <select id="unit" value={form.quantity_unit} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleSelectChange('quantity_unit', e.target.value)}
+              className="h-10 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-slate-400">
+              <option value="hours">Hours</option>
+              <option value="launches">Launches</option>
+              <option value="centihours">Centihours</option>
+            </select>
+          </div>
+
+          <div className="space-y-1">
+            <Label htmlFor="sales_acct">{t('packs.form.salesAccount')}</Label>
+            <select id="sales_acct" value={form.pack_sales_account_uuid ?? ''}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleSelectChange('pack_sales_account_uuid', e.target.value || '')}
+              className="h-10 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-slate-400">
+              <option value="">{t('common.default')}</option>
+              {accounts.map((a) => (
+                <option key={a.uuid} value={a.uuid}>{a.code} — {a.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="space-y-1">
+            <Label htmlFor="disc_acct">{t('packs.form.discountAccount')}</Label>
+            <select id="disc_acct" value={form.pack_discount_expense_account_uuid ?? ''}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleSelectChange('pack_discount_expense_account_uuid', e.target.value || '')}
+              className="h-10 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-slate-400">
+              <option value="">{t('common.default')}</option>
+              {accounts.map((a) => (
+                <option key={a.uuid} value={a.uuid}>{a.code} — {a.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="space-y-1">
+            <Label htmlFor="priority">{t('packs.form.priority')}</Label>
+            <Input id="priority" type="number" min="0" value={form.priority}
+              onChange={(e) => set('priority', parseInt(e.target.value, 10) || 0)} />
+          </div>
+        </div>
+      </div>
+
+      {/* ── Applicability Section ──────────────────────────────────────────── */}
+      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="mb-3 flex items-center justify-between">
+          <h3 className="text-lg font-semibold text-slate-900">{t('packs.form.applicableRates')}</h3>
+          <Button type="button" variant="secondary" size="sm" onClick={addItem}>
+            <Plus className="mr-1 h-4 w-4" /> {t('common.add')}
+          </Button>
+        </div>
+        {items.length === 0 && (
+          <p className="py-4 text-center text-sm text-slate-400">{t('packs.form.noRates')}</p>
+        )}
+        <div className="space-y-1.5">
+          {items.map((item) => (
+            <div key={item._key} className="flex items-center gap-2 rounded-md border border-slate-200 bg-slate-50 px-3 py-1.5">
+              <div className="flex-1">
+                <select value={item.pricing_item_uuid}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateItem(item._key, 'pricing_item_uuid', e.target.value)}
+                  className="h-8 w-full rounded border border-slate-300 bg-white px-2 text-xs focus:outline-none focus:ring-2 focus:ring-slate-400">
+                  <option value="">{t('common.select')}</option>
+                  {pricingItems.map((pi) => (
+                    <option key={`${pi.version_uuid}_${pi.uuid}`} value={pi.uuid}>
+                      {pi.version_name} — {pi.name} (base: {pi.base_price})
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="w-32 shrink-0">
+                <div className="flex items-center gap-1 rounded border border-slate-300 bg-white px-2 py-1">
+                  <span className="text-xs text-slate-500">€</span>
+                  <input type="number" step="0.0001" min="0" value={item.discounted_unit_price}
+                    onChange={(e) => updateItem(item._key, 'discounted_unit_price', e.target.value)}
+                    className="w-full text-xs font-mono outline-none" />
+                </div>
+              </div>
+              <button type="button" onClick={() => removeItem(item._key)}
+                className="shrink-0 rounded p-1 text-slate-400 hover:bg-red-50 hover:text-red-600">
+                <Trash2 className="h-3.5 w-3.5" />
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Actions ────────────────────────────────────────────────────────── */}
+      <div className="flex justify-end gap-3">
+        <Button type="button" variant="secondary" onClick={onCancel} disabled={saving}>
+          {t('common.cancel')}
+        </Button>
+        <Button type="submit" disabled={saving}>
+          {saving ? t('common.saving') : t('common.save')}
+        </Button>
+      </div>
+    </form>
+  )
+}

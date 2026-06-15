@@ -1,0 +1,6 @@
+export { AssetsListPage } from './components/AssetsListPage'
+export { AssetDetailPage } from './components/AssetDetailPage'
+export { AssetFormPage } from './components/AssetFormPage'
+export { AssetPricingPage } from './components/AssetPricingPage'
+export { AssetTypesPage } from './components/AssetTypesPage'
+export { MachinesWorkspacePage } from './components/MachinesWorkspacePage'
