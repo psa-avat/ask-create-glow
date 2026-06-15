@@ -6,8 +6,8 @@
 import { useTranslation } from "react-i18next";
 import { Tags, TableProperties, Wrench } from "lucide-react";
 
-import { WorkspaceShell } from "@/components/ui/workspace-shell";
-import { PlaceholderPage } from "@/components/ui/PlaceholderPage";
+import { WorkspaceShell } from "@/legacy/components/ui/workspace-shell";
+import { PlaceholderPage } from "@/legacy/components/ui/PlaceholderPage";
 import { AssetsListPage } from "./AssetsListPage";
 import { AssetTypesPage } from "./AssetTypesPage";
 

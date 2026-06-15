@@ -67,10 +67,10 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { useAuthStore } from "@/auth/store/authStore";
-import { shellNavItems, type ShellNavItem } from "@/shell/navigation";
+} from "@/legacy/components/ui/sidebar";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/legacy/components/ui/collapsible";
+import { useAuthStore } from "@/legacy/auth/store/authStore";
+import { shellNavItems, type ShellNavItem } from "@/legacy/shell/navigation";
 
 // ── Icon map per nav section ──────────────────────────────────────────────────
 

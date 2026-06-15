@@ -1,5 +1,5 @@
 /**
- * @club-erp/ui — Design system partagé ERP Club + Portail Membre
+ * @/legacy/vendor/club-erp-ui — Design system partagé ERP Club + Portail Membre
  *
  * Exports :
  *   - PageHeader        → entête de page unifié (breadcrumbs + titre + actions)

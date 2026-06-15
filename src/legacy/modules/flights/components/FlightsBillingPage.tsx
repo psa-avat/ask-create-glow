@@ -47,12 +47,12 @@ import {
   Info,
 } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { Alert } from "@/components/ui/alert";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useCapability } from "@/auth/hooks/useCapability";
-import { useFiscalYearStore } from "@/store/fiscalYearStore";
+import { Button } from "@/legacy/components/ui/button";
+import { Alert } from "@/legacy/components/ui/alert";
+import { Input } from "@/legacy/components/ui/input";
+import { Label } from "@/legacy/components/ui/label";
+import { useCapability } from "@/legacy/auth/hooks/useCapability";
+import { useFiscalYearStore } from "@/legacy/store/fiscalYearStore";
 import {
   useBillableFlightsQuery,
   useFlightBillingPreviewMutation,

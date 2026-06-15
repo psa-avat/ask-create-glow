@@ -19,7 +19,7 @@
  */
 
 import type { LucideIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/legacy/lib/utils";
 
 export interface InfoBannerProps {
   icon?: LucideIcon;

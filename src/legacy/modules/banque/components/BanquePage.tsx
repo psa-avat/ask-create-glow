@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { PageHeader } from '@club-erp/ui'
+import { PageHeader } from '@/legacy/vendor/club-erp-ui'
 
 const SETTINGS_SECTIONS = ['accounting', 'pricing', 'budget', 'integrations'] as const
 

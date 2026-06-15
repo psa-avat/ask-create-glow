@@ -22,10 +22,10 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Bell, Search, ChevronDown } from "lucide-react";
-import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Separator } from "@/components/ui/separator";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { SidebarTrigger } from "@/legacy/components/ui/sidebar";
+import { Separator } from "@/legacy/components/ui/separator";
+import { Input } from "@/legacy/components/ui/input";
+import { Button } from "@/legacy/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,13 +33,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useAuthStore } from "@/auth/store/authStore";
-import { useCurrentUser, useLogout } from "@/auth/api/useAuth";
-import { ChangePasswordDialog } from "@/auth/components/ChangePasswordDialog";
-import { useActiveFiscalYearQuery, useFiscalYearsQuery } from "@/modules/banque/api";
-import { useFiscalYearStore } from "@/store/fiscalYearStore";
-import type { FiscalYear } from "@/modules/banque/api";
+} from "@/legacy/components/ui/dropdown-menu";
+import { useAuthStore } from "@/legacy/auth/store/authStore";
+import { useCurrentUser, useLogout } from "@/legacy/auth/api/useAuth";
+import { ChangePasswordDialog } from "@/legacy/auth/components/ChangePasswordDialog";
+import { useActiveFiscalYearQuery, useFiscalYearsQuery } from "@/legacy/modules/banque/api";
+import { useFiscalYearStore } from "@/legacy/store/fiscalYearStore";
+import type { FiscalYear } from "@/legacy/modules/banque/api";
 
 // ── Fiscal Year widgets ───────────────────────────────────────────────────────
 

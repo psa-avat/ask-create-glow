@@ -29,11 +29,11 @@ import {
   FileCheck2,
   ArrowRight,
 } from 'lucide-react'
-import { PageHeader } from '@club-erp/ui'
-import { KpiCard } from '@/components/ui/kpi-card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Checkbox } from '@/components/ui/checkbox'
+import { PageHeader } from '@/legacy/vendor/club-erp-ui'
+import { KpiCard } from '@/legacy/components/ui/kpi-card'
+import { Button } from '@/legacy/components/ui/button'
+import { Badge } from '@/legacy/components/ui/badge'
+import { Checkbox } from '@/legacy/components/ui/checkbox'
 import {
   Table,
   TableBody,
@@ -41,7 +41,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
+} from '@/legacy/components/ui/table'
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 

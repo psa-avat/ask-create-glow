@@ -21,9 +21,9 @@
 import { useTranslation } from "react-i18next";
 import { Receipt, FileText, CreditCard, Banknote } from "lucide-react";
 
-import { WorkspaceShell } from "@/components/ui/workspace-shell";
-import { PlaceholderPage } from "@/components/ui/PlaceholderPage";
-import { useFiscalYearStore } from "@/store/fiscalYearStore";
+import { WorkspaceShell } from "@/legacy/components/ui/workspace-shell";
+import { PlaceholderPage } from "@/legacy/components/ui/PlaceholderPage";
+import { useFiscalYearStore } from "@/legacy/store/fiscalYearStore";
 import { MemberBulkBillingPage } from "./MemberBulkBillingPage";
 import { OpsSalesTab } from "./OpsSalesTab";
 

@@ -21,8 +21,8 @@
 import { useTranslation } from "react-i18next";
 import { CalendarDays, Clock, Users } from "lucide-react";
 
-import { WorkspaceShell } from "@/components/ui/workspace-shell";
-import { PlaceholderPage } from "@/components/ui/PlaceholderPage";
+import { WorkspaceShell } from "@/legacy/components/ui/workspace-shell";
+import { PlaceholderPage } from "@/legacy/components/ui/PlaceholderPage";
 
 /**
  * RhWorkspacePage — Workspace Ressources Humaines.

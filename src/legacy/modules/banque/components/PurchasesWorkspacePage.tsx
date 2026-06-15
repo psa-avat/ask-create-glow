@@ -21,8 +21,8 @@
 import { useTranslation } from "react-i18next";
 import { FileText, Building2 } from "lucide-react";
 
-import { WorkspaceShell } from "@/components/ui/workspace-shell";
-import { useFiscalYearStore } from "@/store/fiscalYearStore";
+import { WorkspaceShell } from "@/legacy/components/ui/workspace-shell";
+import { useFiscalYearStore } from "@/legacy/store/fiscalYearStore";
 import { SupplierInvoicePage } from "./SupplierInvoicePage";
 import { OpsSupplierTab } from "./OpsSupplierTab";
 

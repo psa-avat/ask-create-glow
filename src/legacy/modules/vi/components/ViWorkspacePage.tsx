@@ -28,7 +28,7 @@ import {
   ArrowLeftRight,
 } from "lucide-react";
 
-import { WorkspaceShell } from "@/components/ui/workspace-shell";
+import { WorkspaceShell } from "@/legacy/components/ui/workspace-shell";
 import { ViEntitlementsPage } from "./ViEntitlementsPage";
 import { ViTypesPage } from "./ViTypesPage";
 import { ViPlanningPage } from "./ViPlanningPage";

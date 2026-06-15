@@ -1,4 +1,4 @@
-import { en, fr } from '@club-erp/i18n'
+import { en, fr } from '@/legacy/vendor/club-erp-i18n'
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 

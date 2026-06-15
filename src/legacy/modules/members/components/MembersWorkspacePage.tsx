@@ -6,8 +6,8 @@
 import { useTranslation } from "react-i18next";
 import { ClipboardList, FileText, RefreshCw, Users } from "lucide-react";
 
-import { WorkspaceShell } from "@/components/ui/workspace-shell";
-import { PlaceholderPage } from "@/components/ui/PlaceholderPage";
+import { WorkspaceShell } from "@/legacy/components/ui/workspace-shell";
+import { PlaceholderPage } from "@/legacy/components/ui/PlaceholderPage";
 import { MembersListPage } from "./MembersListPage";
 import { CommitteesManagementPage } from "./CommitteesManagementPage";
 import { MemberSheetsPage } from "./MemberSheetsPage";

@@ -19,8 +19,8 @@
  */
 
 import { Outlet } from "react-router-dom";
-import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
-import { Toaster } from "@/components/ui/sonner";
+import { SidebarProvider, SidebarInset } from "@/legacy/components/ui/sidebar";
+import { Toaster } from "@/legacy/components/ui/sonner";
 import { AppSidebar } from "./AppSidebar";
 import { AppHeader } from "./AppHeader";
 import { AlertsBanner } from "./AlertsBanner";

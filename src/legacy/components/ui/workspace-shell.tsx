@@ -23,9 +23,9 @@ import { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router";
 import type { LucideIcon } from "lucide-react";
 
-import { cn } from "@/lib/utils";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PageHeader } from "@club-erp/ui";
+import { cn } from "@/legacy/lib/utils";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/legacy/components/ui/tabs";
+import { PageHeader } from "@/legacy/vendor/club-erp-ui";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 

@@ -24,13 +24,13 @@ import { AxiosError } from 'axios'
 import Decimal from 'decimal.js'
 import { Plus, Pencil, Trash2, Check, X, ChevronDown, ChevronRight } from 'lucide-react'
 
-import { Alert } from '@/components/ui/alert'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { PageHeader } from '@club-erp/ui'
-import { useCapability } from '@/auth/hooks/useCapability'
-import { apiClient, getAuthRequestConfig } from '@/api/client'
+import { Alert } from '@/legacy/components/ui/alert'
+import { Button } from '@/legacy/components/ui/button'
+import { Input } from '@/legacy/components/ui/input'
+import { Label } from '@/legacy/components/ui/label'
+import { PageHeader } from '@/legacy/vendor/club-erp-ui'
+import { useCapability } from '@/legacy/auth/hooks/useCapability'
+import { apiClient, getAuthRequestConfig } from '@/legacy/api/client'
 import {
   useFiscalYearsQuery,
   useAccountsQuery,

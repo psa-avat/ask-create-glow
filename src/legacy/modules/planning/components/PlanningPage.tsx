@@ -20,7 +20,7 @@
 
 import { useTranslation } from 'react-i18next'
 import { Calendar } from 'lucide-react'
-import { WorkspaceShell } from '@/components/ui/workspace-shell'
+import { WorkspaceShell } from '@/legacy/components/ui/workspace-shell'
 
 export function PlanningPage() {
   const { t } = useTranslation('planning')

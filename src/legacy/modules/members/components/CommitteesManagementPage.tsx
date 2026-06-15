@@ -26,7 +26,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../..
 import { Dialog } from '../../../components/ui/dialog'
 import { Input } from '../../../components/ui/input'
 import { Label } from '../../../components/ui/label'
-import { PageHeader } from '@club-erp/ui'
+import { PageHeader } from '@/legacy/vendor/club-erp-ui'
 import {
   useCommitteeMembersQuery,
   useCommitteesQuery,

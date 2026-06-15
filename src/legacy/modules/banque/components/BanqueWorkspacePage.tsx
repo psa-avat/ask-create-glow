@@ -13,8 +13,8 @@ import {
   TableProperties,
 } from "lucide-react";
 
-import { WorkspaceShell } from "@/components/ui/workspace-shell";
-import { PlaceholderPage } from "@/components/ui/PlaceholderPage";
+import { WorkspaceShell } from "@/legacy/components/ui/workspace-shell";
+import { PlaceholderPage } from "@/legacy/components/ui/PlaceholderPage";
 import { BanqueJournalEntriesPage } from "./BanqueJournalEntriesPage";
 import { BanqueFiscalYearsPage } from "./BanqueFiscalYearsPage";
 import { BanquePcgPage } from "./BanquePcgPage";

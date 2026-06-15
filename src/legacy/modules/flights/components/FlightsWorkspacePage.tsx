@@ -21,8 +21,8 @@
 import { useTranslation } from "react-i18next";
 import { Plane, Tags, Database, ArrowLeftRight, Plug } from "lucide-react";
 
-import { WorkspaceShell } from "@/components/ui/workspace-shell";
-import { PlaceholderPage } from "@/components/ui/PlaceholderPage";
+import { WorkspaceShell } from "@/legacy/components/ui/workspace-shell";
+import { PlaceholderPage } from "@/legacy/components/ui/PlaceholderPage";
 import { FlightsBillingPage } from "./FlightsBillingPage";
 import { OpsPacksTab } from "../../banque";
 import { PlancheFlightsPullPage } from "../../planche";

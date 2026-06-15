@@ -22,11 +22,11 @@ import { type ReactNode, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Users, Shield, KeyRound } from 'lucide-react'
 
-import { Alert } from '@/components/ui/alert'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { WorkspaceShell } from '@/components/ui/workspace-shell'
+import { Alert } from '@/legacy/components/ui/alert'
+import { Button } from '@/legacy/components/ui/button'
+import { Input } from '@/legacy/components/ui/input'
+import { Label } from '@/legacy/components/ui/label'
+import { WorkspaceShell } from '@/legacy/components/ui/workspace-shell'
 import {
   useAdminCapabilitiesQuery,
   useAdminRolesQuery,
