@@ -106,7 +106,7 @@ export const fr = {
       supplierInvoices: 'Factures fournisseurs',
 
       // VI & HelloAsso
-      viEntitlements: 'Droits VI',
+      viEntitlements: 'Bons VI',
       viTypes: 'Types VI',
       viPlanning: 'Planning VI',
       helloasso: 'HelloAsso',
@@ -845,7 +845,7 @@ export const fr = {
     viImport: {
       hero: {
         title: 'Import HelloAsso vers staging VI',
-        description: 'Prévisualisez, importez puis promouvez les achats en droits VI.',
+        description: 'Prévisualisez, importez puis promouvez les achats en Bons VI.',
       },
       form: {
         source: 'Source',
