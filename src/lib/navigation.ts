@@ -24,6 +24,8 @@ import {
   UserCog,
   ShieldCheck,
   HardDrive,
+  Repeat,
+  GitCompareArrows,
   type LucideIcon,
 } from "lucide-react";
 
