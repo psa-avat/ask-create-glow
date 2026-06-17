@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SalesRouteImport } from './routes/sales'
 import { Route as RhRouteImport } from './routes/rh'
 import { Route as ReportingRouteImport } from './routes/reporting'
+import { Route as RecurringEntriesRouteImport } from './routes/recurring-entries'
 import { Route as PurchasesRouteImport } from './routes/purchases'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PortalRouteImport } from './routes/portal'
@@ -21,6 +22,7 @@ import { Route as IntegrationsRouteImport } from './routes/integrations'
 import { Route as FlightsRouteImport } from './routes/flights'
 import { Route as FinanceRouteImport } from './routes/finance'
 import { Route as DiscoveryRouteImport } from './routes/discovery'
+import { Route as BankReconciliationRouteImport } from './routes/bank-reconciliation'
 import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as AdministrationRouteImport } from './routes/administration'
 import { Route as AccountingRouteImport } from './routes/accounting'
@@ -44,6 +46,11 @@ const RhRoute = RhRouteImport.update({
 const ReportingRoute = ReportingRouteImport.update({
   id: '/reporting',
   path: '/reporting',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecurringEntriesRoute = RecurringEntriesRouteImport.update({
+  id: '/recurring-entries',
+  path: '/recurring-entries',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PurchasesRoute = PurchasesRouteImport.update({
@@ -89,6 +96,11 @@ const FinanceRoute = FinanceRouteImport.update({
 const DiscoveryRoute = DiscoveryRouteImport.update({
   id: '/discovery',
   path: '/discovery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BankReconciliationRoute = BankReconciliationRouteImport.update({
+  id: '/bank-reconciliation',
+  path: '/bank-reconciliation',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AssetsRoute = AssetsRouteImport.update({
@@ -142,6 +154,7 @@ export interface FileRoutesByFullPath {
   '/accounting': typeof AccountingRoute
   '/administration': typeof AdministrationRoute
   '/assets': typeof AssetsRoute
+  '/bank-reconciliation': typeof BankReconciliationRoute
   '/discovery': typeof DiscoveryRoute
   '/finance': typeof FinanceRoute
   '/flights': typeof FlightsRoute
@@ -151,6 +164,7 @@ export interface FileRoutesByFullPath {
   '/portal': typeof PortalRouteWithChildren
   '/pricing': typeof PricingRoute
   '/purchases': typeof PurchasesRoute
+  '/recurring-entries': typeof RecurringEntriesRoute
   '/reporting': typeof ReportingRoute
   '/rh': typeof RhRoute
   '/sales': typeof SalesRoute
@@ -165,6 +179,7 @@ export interface FileRoutesByTo {
   '/accounting': typeof AccountingRoute
   '/administration': typeof AdministrationRoute
   '/assets': typeof AssetsRoute
+  '/bank-reconciliation': typeof BankReconciliationRoute
   '/discovery': typeof DiscoveryRoute
   '/finance': typeof FinanceRoute
   '/flights': typeof FlightsRoute
@@ -173,6 +188,7 @@ export interface FileRoutesByTo {
   '/planning': typeof PlanningRoute
   '/pricing': typeof PricingRoute
   '/purchases': typeof PurchasesRoute
+  '/recurring-entries': typeof RecurringEntriesRoute
   '/reporting': typeof ReportingRoute
   '/rh': typeof RhRoute
   '/sales': typeof SalesRoute
@@ -188,6 +204,7 @@ export interface FileRoutesById {
   '/accounting': typeof AccountingRoute
   '/administration': typeof AdministrationRoute
   '/assets': typeof AssetsRoute
+  '/bank-reconciliation': typeof BankReconciliationRoute
   '/discovery': typeof DiscoveryRoute
   '/finance': typeof FinanceRoute
   '/flights': typeof FlightsRoute
@@ -197,6 +214,7 @@ export interface FileRoutesById {
   '/portal': typeof PortalRouteWithChildren
   '/pricing': typeof PricingRoute
   '/purchases': typeof PurchasesRoute
+  '/recurring-entries': typeof RecurringEntriesRoute
   '/reporting': typeof ReportingRoute
   '/rh': typeof RhRoute
   '/sales': typeof SalesRoute
@@ -213,6 +231,7 @@ export interface FileRouteTypes {
     | '/accounting'
     | '/administration'
     | '/assets'
+    | '/bank-reconciliation'
     | '/discovery'
     | '/finance'
     | '/flights'
@@ -222,6 +241,7 @@ export interface FileRouteTypes {
     | '/portal'
     | '/pricing'
     | '/purchases'
+    | '/recurring-entries'
     | '/reporting'
     | '/rh'
     | '/sales'
@@ -236,6 +256,7 @@ export interface FileRouteTypes {
     | '/accounting'
     | '/administration'
     | '/assets'
+    | '/bank-reconciliation'
     | '/discovery'
     | '/finance'
     | '/flights'
@@ -244,6 +265,7 @@ export interface FileRouteTypes {
     | '/planning'
     | '/pricing'
     | '/purchases'
+    | '/recurring-entries'
     | '/reporting'
     | '/rh'
     | '/sales'
@@ -258,6 +280,7 @@ export interface FileRouteTypes {
     | '/accounting'
     | '/administration'
     | '/assets'
+    | '/bank-reconciliation'
     | '/discovery'
     | '/finance'
     | '/flights'
@@ -267,6 +290,7 @@ export interface FileRouteTypes {
     | '/portal'
     | '/pricing'
     | '/purchases'
+    | '/recurring-entries'
     | '/reporting'
     | '/rh'
     | '/sales'
@@ -282,6 +306,7 @@ export interface RootRouteChildren {
   AccountingRoute: typeof AccountingRoute
   AdministrationRoute: typeof AdministrationRoute
   AssetsRoute: typeof AssetsRoute
+  BankReconciliationRoute: typeof BankReconciliationRoute
   DiscoveryRoute: typeof DiscoveryRoute
   FinanceRoute: typeof FinanceRoute
   FlightsRoute: typeof FlightsRoute
@@ -291,6 +316,7 @@ export interface RootRouteChildren {
   PortalRoute: typeof PortalRouteWithChildren
   PricingRoute: typeof PricingRoute
   PurchasesRoute: typeof PurchasesRoute
+  RecurringEntriesRoute: typeof RecurringEntriesRoute
   ReportingRoute: typeof ReportingRoute
   RhRoute: typeof RhRoute
   SalesRoute: typeof SalesRoute
@@ -317,6 +343,13 @@ declare module '@tanstack/react-router' {
       path: '/reporting'
       fullPath: '/reporting'
       preLoaderRoute: typeof ReportingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recurring-entries': {
+      id: '/recurring-entries'
+      path: '/recurring-entries'
+      fullPath: '/recurring-entries'
+      preLoaderRoute: typeof RecurringEntriesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/purchases': {
@@ -380,6 +413,13 @@ declare module '@tanstack/react-router' {
       path: '/discovery'
       fullPath: '/discovery'
       preLoaderRoute: typeof DiscoveryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bank-reconciliation': {
+      id: '/bank-reconciliation'
+      path: '/bank-reconciliation'
+      fullPath: '/bank-reconciliation'
+      preLoaderRoute: typeof BankReconciliationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/assets': {
@@ -472,6 +512,7 @@ const rootRouteChildren: RootRouteChildren = {
   AccountingRoute: AccountingRoute,
   AdministrationRoute: AdministrationRoute,
   AssetsRoute: AssetsRoute,
+  BankReconciliationRoute: BankReconciliationRoute,
   DiscoveryRoute: DiscoveryRoute,
   FinanceRoute: FinanceRoute,
   FlightsRoute: FlightsRoute,
@@ -481,6 +522,7 @@ const rootRouteChildren: RootRouteChildren = {
   PortalRoute: PortalRouteWithChildren,
   PricingRoute: PricingRoute,
   PurchasesRoute: PurchasesRoute,
+  RecurringEntriesRoute: RecurringEntriesRoute,
   ReportingRoute: ReportingRoute,
   RhRoute: RhRoute,
   SalesRoute: SalesRoute,
