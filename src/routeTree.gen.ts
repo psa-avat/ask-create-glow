@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SalesRouteImport } from './routes/sales'
 import { Route as RhRouteImport } from './routes/rh'
 import { Route as ReportingRouteImport } from './routes/reporting'
+import { Route as RecurringEntriesRouteImport } from './routes/recurring-entries'
 import { Route as PurchasesRouteImport } from './routes/purchases'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PortalRouteImport } from './routes/portal'
@@ -44,6 +45,11 @@ const RhRoute = RhRouteImport.update({
 const ReportingRoute = ReportingRouteImport.update({
   id: '/reporting',
   path: '/reporting',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecurringEntriesRoute = RecurringEntriesRouteImport.update({
+  id: '/recurring-entries',
+  path: '/recurring-entries',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PurchasesRoute = PurchasesRouteImport.update({
@@ -151,6 +157,7 @@ export interface FileRoutesByFullPath {
   '/portal': typeof PortalRouteWithChildren
   '/pricing': typeof PricingRoute
   '/purchases': typeof PurchasesRoute
+  '/recurring-entries': typeof RecurringEntriesRoute
   '/reporting': typeof ReportingRoute
   '/rh': typeof RhRoute
   '/sales': typeof SalesRoute
@@ -173,6 +180,7 @@ export interface FileRoutesByTo {
   '/planning': typeof PlanningRoute
   '/pricing': typeof PricingRoute
   '/purchases': typeof PurchasesRoute
+  '/recurring-entries': typeof RecurringEntriesRoute
   '/reporting': typeof ReportingRoute
   '/rh': typeof RhRoute
   '/sales': typeof SalesRoute
@@ -197,6 +205,7 @@ export interface FileRoutesById {
   '/portal': typeof PortalRouteWithChildren
   '/pricing': typeof PricingRoute
   '/purchases': typeof PurchasesRoute
+  '/recurring-entries': typeof RecurringEntriesRoute
   '/reporting': typeof ReportingRoute
   '/rh': typeof RhRoute
   '/sales': typeof SalesRoute
@@ -222,6 +231,7 @@ export interface FileRouteTypes {
     | '/portal'
     | '/pricing'
     | '/purchases'
+    | '/recurring-entries'
     | '/reporting'
     | '/rh'
     | '/sales'
@@ -244,6 +254,7 @@ export interface FileRouteTypes {
     | '/planning'
     | '/pricing'
     | '/purchases'
+    | '/recurring-entries'
     | '/reporting'
     | '/rh'
     | '/sales'
@@ -267,6 +278,7 @@ export interface FileRouteTypes {
     | '/portal'
     | '/pricing'
     | '/purchases'
+    | '/recurring-entries'
     | '/reporting'
     | '/rh'
     | '/sales'
@@ -291,6 +303,7 @@ export interface RootRouteChildren {
   PortalRoute: typeof PortalRouteWithChildren
   PricingRoute: typeof PricingRoute
   PurchasesRoute: typeof PurchasesRoute
+  RecurringEntriesRoute: typeof RecurringEntriesRoute
   ReportingRoute: typeof ReportingRoute
   RhRoute: typeof RhRoute
   SalesRoute: typeof SalesRoute
@@ -317,6 +330,13 @@ declare module '@tanstack/react-router' {
       path: '/reporting'
       fullPath: '/reporting'
       preLoaderRoute: typeof ReportingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recurring-entries': {
+      id: '/recurring-entries'
+      path: '/recurring-entries'
+      fullPath: '/recurring-entries'
+      preLoaderRoute: typeof RecurringEntriesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/purchases': {
@@ -481,6 +501,7 @@ const rootRouteChildren: RootRouteChildren = {
   PortalRoute: PortalRouteWithChildren,
   PricingRoute: PricingRoute,
   PurchasesRoute: PurchasesRoute,
+  RecurringEntriesRoute: RecurringEntriesRoute,
   ReportingRoute: ReportingRoute,
   RhRoute: RhRoute,
   SalesRoute: SalesRoute,
@@ -488,13 +509,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
