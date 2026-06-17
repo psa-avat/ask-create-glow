@@ -142,8 +142,8 @@ export const navSections: NavSection[] = [
     children: [
       { to: "/finance", label: "Vue d'ensemble", icon: LayoutDashboard },
       { to: "/finance#operations", label: "Opérations", icon: ArrowLeftRight },
-      { to: "/finance#recurring", label: "Écritures récurrentes", icon: ArrowLeftRight },
-      { to: "/finance#reconciliation", label: "Rapprochement", icon: ArrowLeftRight },
+      { to: "/recurring-entries", label: "Écritures récurrentes", icon: Repeat },
+      { to: "/bank-reconciliation", label: "Rapprochement bancaire", icon: GitCompareArrows },
     ],
   },
 
