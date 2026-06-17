@@ -22,6 +22,7 @@ import { Route as IntegrationsRouteImport } from './routes/integrations'
 import { Route as FlightsRouteImport } from './routes/flights'
 import { Route as FinanceRouteImport } from './routes/finance'
 import { Route as DiscoveryRouteImport } from './routes/discovery'
+import { Route as BankReconciliationRouteImport } from './routes/bank-reconciliation'
 import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as AdministrationRouteImport } from './routes/administration'
 import { Route as AccountingRouteImport } from './routes/accounting'
@@ -97,6 +98,11 @@ const DiscoveryRoute = DiscoveryRouteImport.update({
   path: '/discovery',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BankReconciliationRoute = BankReconciliationRouteImport.update({
+  id: '/bank-reconciliation',
+  path: '/bank-reconciliation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AssetsRoute = AssetsRouteImport.update({
   id: '/assets',
   path: '/assets',
@@ -148,6 +154,7 @@ export interface FileRoutesByFullPath {
   '/accounting': typeof AccountingRoute
   '/administration': typeof AdministrationRoute
   '/assets': typeof AssetsRoute
+  '/bank-reconciliation': typeof BankReconciliationRoute
   '/discovery': typeof DiscoveryRoute
   '/finance': typeof FinanceRoute
   '/flights': typeof FlightsRoute
@@ -172,6 +179,7 @@ export interface FileRoutesByTo {
   '/accounting': typeof AccountingRoute
   '/administration': typeof AdministrationRoute
   '/assets': typeof AssetsRoute
+  '/bank-reconciliation': typeof BankReconciliationRoute
   '/discovery': typeof DiscoveryRoute
   '/finance': typeof FinanceRoute
   '/flights': typeof FlightsRoute
@@ -196,6 +204,7 @@ export interface FileRoutesById {
   '/accounting': typeof AccountingRoute
   '/administration': typeof AdministrationRoute
   '/assets': typeof AssetsRoute
+  '/bank-reconciliation': typeof BankReconciliationRoute
   '/discovery': typeof DiscoveryRoute
   '/finance': typeof FinanceRoute
   '/flights': typeof FlightsRoute
@@ -222,6 +231,7 @@ export interface FileRouteTypes {
     | '/accounting'
     | '/administration'
     | '/assets'
+    | '/bank-reconciliation'
     | '/discovery'
     | '/finance'
     | '/flights'
@@ -246,6 +256,7 @@ export interface FileRouteTypes {
     | '/accounting'
     | '/administration'
     | '/assets'
+    | '/bank-reconciliation'
     | '/discovery'
     | '/finance'
     | '/flights'
@@ -269,6 +280,7 @@ export interface FileRouteTypes {
     | '/accounting'
     | '/administration'
     | '/assets'
+    | '/bank-reconciliation'
     | '/discovery'
     | '/finance'
     | '/flights'
@@ -294,6 +306,7 @@ export interface RootRouteChildren {
   AccountingRoute: typeof AccountingRoute
   AdministrationRoute: typeof AdministrationRoute
   AssetsRoute: typeof AssetsRoute
+  BankReconciliationRoute: typeof BankReconciliationRoute
   DiscoveryRoute: typeof DiscoveryRoute
   FinanceRoute: typeof FinanceRoute
   FlightsRoute: typeof FlightsRoute
@@ -402,6 +415,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DiscoveryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bank-reconciliation': {
+      id: '/bank-reconciliation'
+      path: '/bank-reconciliation'
+      fullPath: '/bank-reconciliation'
+      preLoaderRoute: typeof BankReconciliationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/assets': {
       id: '/assets'
       path: '/assets'
@@ -492,6 +512,7 @@ const rootRouteChildren: RootRouteChildren = {
   AccountingRoute: AccountingRoute,
   AdministrationRoute: AdministrationRoute,
   AssetsRoute: AssetsRoute,
+  BankReconciliationRoute: BankReconciliationRoute,
   DiscoveryRoute: DiscoveryRoute,
   FinanceRoute: FinanceRoute,
   FlightsRoute: FlightsRoute,
